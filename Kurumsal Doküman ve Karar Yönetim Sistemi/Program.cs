@@ -17,7 +17,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // DbContext ekleme
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Email Service ekleme
 builder.Services.AddScoped<Kurumsal_Doküman_ve_Karar_Yönetim_Sistemi.Services.IEmailService, Kurumsal_Doküman_ve_Karar_Yönetim_Sistemi.Services.EmailService>();
