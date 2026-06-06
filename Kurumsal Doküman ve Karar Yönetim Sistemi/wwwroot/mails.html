@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesajlar – KDKYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .mail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mail-item {
+      background: var(--bg-card);
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.2s;
+    }
+    .mail-item:hover {
+      background: rgba(99, 102, 241, 0.05);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .mail-item.unread {
+      border-left: 4px solid var(--primary);
+      background: rgba(255,255,255,0.02);
+    }
+    .mail-item.read {
+      border-left: 4px solid transparent;
+      opacity: 0.8;
+    }
+    .mail-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    .mail-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .mail-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .mail-sender {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .mail-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .mail-subject {
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mail-body-preview {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mail-detail {
+      background: var(--bg-card);
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .mail-detail-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    .mail-detail-body {
+      color: var(--text-main);
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#g4)"/><path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/><defs><linearGradient id="g4" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+      <a href="documents.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg><span>Dokümanlar</span></a>
+      <a href="tasks.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Görevler</span></a>
+      <a href="users.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Kullanıcılar</span></a>
+      <a href="meetings.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Toplantılar</span></a>
+      <a href="mails.html?v=2" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span>Mesajlar</span></a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info"><p class="user-name" id="sidebarName">...</p><p class="user-role" id="sidebarRole"></p></div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div><h1 class="page-title">Mesajlar</h1><p class="page-subtitle">Kurum içi iletişim</p></div>
+      <button class="btn btn-primary" id="openMailModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Yeni Mesaj
+      </button>
+    </header>
+
+    <div class="tab-bar">
+      <button class="tab active" data-tab="inbox">Gelen Kutusu</button>
+      <button class="tab" data-tab="sent">Gönderilenler</button>
+    </div>
+
+    <div style="display: flex; gap: 20px; align-items: flex-start; margin-top: 1rem;">
+      <div id="mailListContainer" style="flex: 1;">
+        <div id="mailList" class="mail-list">
+          <div class="panel-loading">Yükleniyor...</div>
+        </div>
+      </div>
+      
+      <div id="mailDetailContainer" style="flex: 1.5; display: none;">
+        <div class="mail-detail">
+          <button class="btn btn-ghost" id="closeMailDetail" style="margin-bottom: 10px; padding: 5px 10px;">← Geri</button>
+          <div class="mail-detail-header">
+            <div>
+              <h2 id="detailSubject" style="margin: 0; color: var(--text-main);">Konu</h2>
+              <p id="detailSender" style="margin: 5px 0 0; color: var(--text-muted); font-size: 0.9rem;">Gönderen: Kimden</p>
+            </div>
+            <div id="detailDate" style="color: var(--text-muted); font-size: 0.85rem;">Tarih</div>
+          </div>
+          <div id="detailBody" class="mail-detail-body">
+            İçerik buraya gelecek...
+          </div>
+          <div id="replyContainer" style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: none;">
+            <h4 style="margin-top: 0; color: var(--text-main); font-size: 0.95rem;">Yanıtla</h4>
+            <div class="form-group" style="margin-bottom: 0.5rem;">
+              <textarea id="replyBody" placeholder="Yanıtınızı buraya yazın..." rows="4" style="width: 100%; border-radius: var(--radius-md); padding: 0.8rem; background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main);"></textarea>
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+              <button class="btn btn-primary" id="sendReplyBtn" style="padding: 0.4rem 1rem; font-size: 0.9rem;">Gönder</button>
+            </div>
+            <div id="replyAlert" class="alert hidden" style="margin-top: 0.5rem; padding: 0.5rem; font-size: 0.85rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Compose Mail Modal -->
+  <div class="modal-overlay hidden" id="mailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Yeni Mesaj</h3>
+        <button class="modal-close" id="closeMailModal">✕</button>
+      </div>
+      <form id="mailForm" class="modal-form">
+        <div class="form-group"><label>Alıcı *</label>
+          <select id="mailReceiver" required><option value="">Seçin...</option></select>
+        </div>
+        <div class="form-group"><label>Konu *</label><input type="text" id="mailSubject" placeholder="Mesaj konusu" required /></div>
+        <div class="form-group"><label>Mesaj *</label><textarea id="mailBody" placeholder="Mesajınızı yazın..." rows="6" required></textarea></div>
+        <div id="mailAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelMail">İptal</button>
+          <button type="submit" class="btn btn-primary" id="mailSubmitBtn">Gönder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth(); renderSidebar();
+    
+    let allUsers = [];
+    let inboxMails = [];
+    let sentMails = [];
+    let currentTab = 'inbox';
+    let currentMailDetail = null;
+
+    async function loadMails() {
+        try {
+            const userId = localStorage.getItem('userId');
+            
+            // Kullanıcıları yükle
+            if (allUsers.length === 0) {
+                allUsers = await Api.get('/api/Users');
+                const sel = document.getElementById('mailReceiver');
+                sel.innerHTML = '<option value="">Seçin...</option>' + allUsers
+                    .filter(u => u.id != userId)
+                    .map(u => `<option value="${u.id}">${escHtml(u.name)}</option>`)
+                    .join('');
+            }
+
+            if (currentTab === 'inbox') {
+                inboxMails = await Api.get('/api/InternalMails/inbox/' + userId);
+                renderMailList(inboxMails, true);
+            } else {
+                sentMails = await Api.get('/api/InternalMails/sent/' + userId);
+                renderMailList(sentMails, false);
+            }
+        } catch(e) {
+            document.getElementById('mailList').innerHTML = `<p class="table-error">Hata: ${e.message}</p>`;
+        }
+    }
+
+    function renderMailList(mails, isInbox) {
+        const list = document.getElementById('mailList');
+        if (!mails || mails.length === 0) {
+            list.innerHTML = `<p class="empty-state">${isInbox ? 'Gelen kutunuz boş.' : 'Gönderilmiş mesajınız yok.'}</p>`;
+            return;
+        }
+
+        list.innerHTML = mails.map(m => {
+            const isReadClass = isInbox ? (m.isRead ? 'read' : 'unread') : 'read';
+            const personName = isInbox ? m.senderName : m.receiverName;
+            const initial = personName.charAt(0).toUpperCase();
+
+            return `
+            <div class="mail-item ${isReadClass}" onclick="openMailDetail(${m.id}, ${isInbox})">
+                <div class="mail-avatar">${initial}</div>
+                <div class="mail-content">
+                    <div class="mail-header">
+                        <span class="mail-sender">${isInbox ? escHtml(m.senderName) : 'Alıcı: ' + escHtml(m.receiverName)}</span>
+                        <span class="mail-date">${new Date(m.createdAt).toLocaleString('tr-TR')}</span>
+                    </div>
+                    <div class="mail-subject">${escHtml(m.subject)}</div>
+                    <div class="mail-body-preview">${escHtml(m.body)}</div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    async function openMailDetail(id, isInbox) {
+        const mails = isInbox ? inboxMails : sentMails;
+        const mail = mails.find(m => m.id === id);
+        if(!mail) return;
+
+        document.getElementById('detailSubject').textContent = mail.subject;
+        document.getElementById('detailSender').textContent = isInbox ? 'Gönderen: ' + mail.senderName : 'Alıcı: ' + mail.receiverName;
+        document.getElementById('detailDate').textContent = new Date(mail.createdAt).toLocaleString('tr-TR');
+        document.getElementById('detailBody').textContent = mail.body;
+
+        document.getElementById('mailListContainer').style.display = 'none';
+        document.getElementById('mailDetailContainer').style.display = 'block';
+
+        if (isInbox) {
+            currentMailDetail = mail;
+            document.getElementById('replyContainer').style.display = 'block';
+            document.getElementById('replyBody').value = '';
+            document.getElementById('replyAlert').classList.add('hidden');
+        } else {
+            currentMailDetail = null;
+            document.getElementById('replyContainer').style.display = 'none';
+        }
+
+        if (isInbox && !mail.isRead) {
+            try {
+                await Api.post(`/api/InternalMails/${id}/mark-read`);
+                mail.isRead = true;
+            } catch(e) { console.error("Okundu işaretlenemedi", e); }
+        }
+    }
+
+    document.getElementById('sendReplyBtn').onclick = async () => {
+        if (!currentMailDetail) return;
+        const body = document.getElementById('replyBody').value.trim();
+        if (!body) return;
+
+        const btn = document.getElementById('sendReplyBtn');
+        const al = document.getElementById('replyAlert');
+        btn.disabled = true;
+        al.classList.add('hidden');
+
+        const payload = {
+            senderId: parseInt(localStorage.getItem('userId')),
+            receiverId: currentMailDetail.senderId, // Gelen mailin göndereni, yanıtın alıcısı olur
+            subject: currentMailDetail.subject.startsWith('Re: ') ? currentMailDetail.subject : 'Re: ' + currentMailDetail.subject,
+            body: body
+        };
+
+        try {
+            await Api.post('/api/InternalMails', payload);
+            al.textContent = 'Yanıtınız başarıyla gönderildi!';
+            al.className = 'alert alert-success';
+            al.classList.remove('hidden');
+            document.getElementById('replyBody').value = '';
+            setTimeout(() => al.classList.add('hidden'), 3000);
+        } catch (err) {
+            al.textContent = err.message || 'Gönderim başarısız';
+            al.className = 'alert alert-error';
+            al.classList.remove('hidden');
+        } finally {
+            btn.disabled = false;
+        }
+    };
+
+    document.getElementById('closeMailDetail').onclick = () => {
+        document.getElementById('mailListContainer').style.display = 'block';
+        document.getElementById('mailDetailContainer').style.display = 'none';
+        loadMails(); // Yeniden yükle (okundu durumu güncellenmesi için)
+    };
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTab = btn.dataset.tab;
+            
+            document.getElementById('mailListContainer').style.display = 'block';
+            document.getElementById('mailDetailContainer').style.display = 'none';
+            document.getElementById('mailList').innerHTML = '<div class="panel-loading">Yükleniyor...</div>';
+            
+            loadMails();
+        });
+    });
+
+    // Compose Modal
+    document.getElementById('openMailModal').onclick = () => {
+        document.getElementById('mailForm').reset();
+        document.getElementById('mailAlert').classList.add('hidden');
+        document.getElementById('mailModal').classList.remove('hidden');
+    };
+    document.getElementById('closeMailModal').onclick = () => document.getElementById('mailModal').classList.add('hidden');
+    document.getElementById('cancelMail').onclick = () => document.getElementById('mailModal').classList.add('hidden');
+
+    document.getElementById('mailForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('mailSubmitBtn');
+        const al = document.getElementById('mailAlert');
+        
+        btn.disabled = true;
+        al.classList.add('hidden');
+        
+        const payload = {
+            senderId: parseInt(localStorage.getItem('userId')),
+            receiverId: parseInt(document.getElementById('mailReceiver').value),
+            subject: document.getElementById('mailSubject').value,
+            body: document.getElementById('mailBody').value
+        };
+
+        try {
+            await Api.post('/api/InternalMails', payload);
+            al.textContent = 'Mesaj başarıyla gönderildi!';
+            al.className = 'alert alert-success';
+            
+            setTimeout(() => {
+                document.getElementById('mailModal').classList.add('hidden');
+                if(currentTab === 'sent') loadMails();
+            }, 1000);
+        } catch(err) {
+            al.textContent = err.message || 'Gönderim başarısız';
+            al.className = 'alert alert-error';
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    loadMails();
+  </script>
+</body>
+</html>

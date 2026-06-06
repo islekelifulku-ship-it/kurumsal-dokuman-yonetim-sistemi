@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KDKYS – Kurumsal Doküman ve Karar Yönetim Sistemi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --login-bg: #0f172a;
+      --login-card: #1e293b;
+      --login-accent: #6366f1;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--login-bg);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+    }
+    
+    /* Left Side - Branding */
+    .login-left {
+      flex: 1;
+      background: linear-gradient(135deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.9) 100%), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1920') center/cover;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem;
+      overflow: hidden;
+    }
+    
+    .login-left::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(15,23,42,0.8) 100%);
+      z-index: 1;
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+    
+    .brand-logo-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .brand-subtitle {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.8);
+      font-weight: 300;
+    }
+
+    /* Right Side - Form */
+    .login-right {
+      flex: 0 0 480px;
+      background: var(--login-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem;
+      box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
+    .login-header {
+      margin-bottom: 2.5rem;
+    }
+    
+    .login-header h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .login-header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .custom-input {
+      width: 100%;
+      background: rgba(15,23,42,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.875rem 1rem 0.875rem 2.8rem;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .custom-input:focus {
+      border-color: var(--login-accent);
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    .input-icon-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-icon-wrapper svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      transition: color 0.3s;
+    }
+
+    .custom-input:focus + svg,
+    .custom-input:not(:placeholder-shown) ~ svg {
+      color: var(--login-accent);
+    }
+
+    .login-btn-large {
+      width: 100%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .login-btn-large:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99,102,241,0.4);
+    }
+
+    .login-footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    
+    .login-footer a {
+      color: var(--login-accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    
+    .login-footer a:hover {
+      color: #8b5cf6;
+    }
+
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      .login-left { display: none; }
+      .login-right { flex: 1; width: 100%; padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Side: Visual Brand -->
+  <div class="login-left">
+    <div class="brand-content">
+      <div class="brand-logo-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M3 14h7v7H3z"/></svg>
+      </div>
+      <h1 class="brand-title">KDKYS<br/>Yeni Nesil<br/>Yönetim Sistemi</h1>
+      <p class="brand-subtitle">Kurumunuzun tüm dokümanlarını, departman görevlerini ve toplantı kararlarını güvenli, hızlı ve şeffaf bir şekilde tek merkezden yönetin.</p>
+    </div>
+  </div>
+
+  <!-- Right Side: Login -->
+  <div class="login-right">
+    <div class="login-header">
+      <h2>Hoş Geldiniz 👋</h2>
+      <p>Sisteme erişmek için bilgilerinizi girin.</p>
+    </div>
+
+    <div id="loginAlert" class="alert hidden" style="margin-bottom:1.5rem;"></div>
+
+    <form id="loginForm" autocomplete="off">
+      
+      <div class="form-group" style="margin-bottom: 0.5rem;">
+        <label style="display:block; margin-bottom:0.5rem; color:#cbd5e1; font-size:0.9rem; font-weight:500;">E-posta Adresi</label>
+        <div class="input-icon-wrapper">
+          <input type="email" id="email" class="custom-input" placeholder="ornek@sirket.com" required autocomplete="email" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 2rem;">
+        <label style="display:block; margin-bottom:0.5rem; color:#cbd5e1; font-size:0.9rem; font-weight:500;">Şifre</label>
+        <div class="input-icon-wrapper" style="margin-bottom:0;">
+          <input type="password" id="password" class="custom-input" placeholder="••••••••" required autocomplete="current-password" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <button type="button" id="togglePw" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); background:none; border:none; color:#64748b; cursor:pointer;">
+            <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" id="loginBtn" class="login-btn-large">
+        <span id="loginBtnText">Sisteme Giriş Yap</span>
+        <svg id="loginSpinner" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      </button>
+
+    </form>
+
+    <div class="login-footer">
+      Sistemde kaydınız yok mu? <a href="register.html">Hemen Kayıt Olun</a>
+    </div>
+  </div>
+
+  <style>
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+
+  <script src="js/api.js"></script>
+  <script>
+    if (localStorage.getItem('token')) {
+      window.location.href = 'dashboard.html?v=2';
+    }
+
+    document.getElementById('togglePw').addEventListener('click', () => {
+      const pw = document.getElementById('password');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const txt = document.getElementById('loginBtnText');
+      const spinner = document.getElementById('loginSpinner');
+      const alert = document.getElementById('loginAlert');
+
+      btn.disabled = true;
+      txt.textContent = 'Bağlanıyor...';
+      spinner.classList.remove('hidden');
+      alert.classList.add('hidden');
+
+      try {
+        const result = await Api.login(
+          document.getElementById('email').value,
+          document.getElementById('password').value
+        );
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('role', result.role);
+        localStorage.setItem('userEmail', document.getElementById('email').value);
+        localStorage.setItem('userName', result.name);
+        localStorage.setItem('userId', result.userId);
+        window.location.href = 'dashboard.html?v=2';
+      } catch (err) {
+        alert.textContent = err.message || 'Giriş başarısız. E-posta veya şifre hatalı.';
+        alert.className = 'alert alert-error';
+        btn.disabled = false;
+        txt.textContent = 'Sisteme Giriş Yap';
+        spinner.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

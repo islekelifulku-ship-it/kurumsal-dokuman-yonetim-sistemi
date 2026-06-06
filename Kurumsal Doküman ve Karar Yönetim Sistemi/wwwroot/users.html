@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kullanıcılar – KDKYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#g5)"/><path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/><defs><linearGradient id="g5" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+      <a href="documents.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg><span>Dokümanlar</span></a>
+      <a href="tasks.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Görevler</span></a>
+      <a href="users.html?v=2" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Kullanıcılar</span></a>
+      <a href="meetings.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Toplantılar</span></a>
+            <a href="mails.html?v=2" class="nav-item" id="nav-mails">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Mesajlar</span>
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info"><p class="user-name" id="sidebarName">...</p><p class="user-role" id="sidebarRole"></p></div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div><h1 class="page-title">Kullanıcılar</h1><p class="page-subtitle">Sistem kullanıcılarını görüntüleyin</p></div>
+    </header>
+
+    <div class="filter-bar">
+      <div class="search-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="userSearch" class="search-input" placeholder="Kullanıcı ara..." />
+      </div>
+      <select id="roleFilter" class="filter-select">
+        <option value="">Tüm Roller</option>
+        <option value="Yönetici">Yönetici</option>
+        <option value="Personel">Personel</option>
+        <option value="Departman Sorumlusu">Departman Sorumlusu</option>
+      </select>
+    </div>
+
+    <!-- User Cards Grid -->
+    <div id="userGrid" class="user-grid">
+      <div class="panel-loading">Yükleniyor...</div>
+    </div>
+  </main>
+
+  <!-- Edit User Modal -->
+  <div class="modal-overlay hidden" id="userModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Kullanıcıyı Düzenle</h3>
+        <button class="modal-close" id="closeUserModal">✕</button>
+      </div>
+      <form id="userForm" class="modal-form">
+        <input type="hidden" id="editUserId" />
+        <div class="form-group"><label>Ad Soyad</label><input type="text" id="editUserName" required /></div>
+        <div class="form-group"><label>E-posta</label><input type="email" id="editUserEmail" required /></div>
+        <div class="form-group">
+          <label>Departman</label>
+          <select id="editUserDepartment">
+            <option value="">(Departman Yok)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Rol</label>
+          <select id="editUserRole" required>
+            <option value="Personel">Personel</option>
+            <option value="Yönetici">Yönetici</option>
+            <option value="Departman Sorumlusu">Departman Sorumlusu</option>
+          </select>
+        </div>
+        <div id="userAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelUserEdit">İptal</button>
+          <button type="submit" class="btn btn-primary" id="userSubmitBtn">
+            <span id="userSubmitText">Güncelle</span>
+            <div id="userSpinner" class="btn-spinner hidden"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth(); renderSidebar();
+    let allUsers=[];
+    let allDepartments=[];
+
+    async function loadUsers(){
+      try{
+        const [users, depts] = await Promise.all([
+            Api.get('/api/Users'),
+            Api.get('/api/Departments')
+        ]);
+        allUsers = users;
+        allDepartments = depts;
+        
+        // Populate departments dropdown
+        const deptSelect = document.getElementById('editUserDepartment');
+        deptSelect.innerHTML = '<option value="">(Departman Yok)</option>' + allDepartments.map(d => `<option value="${d.id}">${escHtml(d.name)}</option>`).join('');
+
+        renderUsers(allUsers);
+      }catch(e){ document.getElementById('userGrid').innerHTML=`<p class="table-error">Hata: ${e.message}</p>`; }
+    }
+
+    function renderUsers(users){
+      const grid=document.getElementById('userGrid');
+      const currentUserRole = localStorage.getItem('role');
+      if(!users.length){grid.innerHTML='<p class="empty-state">Kullanıcı bulunamadı</p>';return;}
+      grid.innerHTML=users.map(u=>{
+        const initials=(u.name||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+        const roleColor=u.role==='Yönetici'?'#6366f1':u.role==='Departman Sorumlusu'?'#0ea5e9':'#10b981';
+        const actionsHtml = currentUserRole === 'Yönetici' ? `
+            <div class="task-card-actions" style="margin-top:auto;">
+              <button class="icon-btn icon-btn-purple" title="Düzenle" onclick="openEditUserModal(${u.id})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="icon-btn icon-btn-red" title="Sil" onclick="deleteUser(${u.id})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1v2"/></svg>
+              </button>
+            </div>` : '';
+            
+        return `
+          <div class="user-card" style="flex-direction:column; align-items:flex-start;">
+            <div style="display:flex; align-items:center; gap:1.25rem; width:100%;">
+              <div class="user-card-avatar" style="background:${roleColor}20;color:${roleColor}">${initials}</div>
+              <div class="user-card-info">
+                <h3 class="user-card-name">${escHtml(u.name||'')}</h3>
+                <p class="user-card-email">${escHtml(u.email||'')}</p>
+                <div style="display:flex; gap:0.5rem; margin-top:0.3rem;">
+                  <span class="badge" style="background:${roleColor}20;color:${roleColor}">${escHtml(u.role||'')}</span>
+                  ${u.departmentName ? `<span class="badge badge-info">${escHtml(u.departmentName)}</span>` : ''}
+                </div>
+              </div>
+            </div>
+            ${actionsHtml}
+          </div>`;
+      }).join('');
+    }
+
+    document.getElementById('userSearch').addEventListener('input',filterUsers);
+    document.getElementById('roleFilter').addEventListener('change',filterUsers);
+
+    function filterUsers(){
+      const q=document.getElementById('userSearch').value.toLowerCase();
+      const r=document.getElementById('roleFilter').value;
+      renderUsers(allUsers.filter(u=>{
+        const mq=(u.name||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q);
+        const mr=!r||u.role===r;
+        return mq&&mr;
+      }));
+    }
+
+    // Modal Logic
+    function openEditUserModal(id) {
+      const u = allUsers.find(x => x.id === id);
+      if (!u) return;
+      document.getElementById('editUserId').value = u.id;
+      document.getElementById('editUserName').value = u.name;
+      document.getElementById('editUserEmail').value = u.email;
+      document.getElementById('editUserRole').value = u.role;
+      document.getElementById('editUserDepartment').value = u.departmentId || '';
+      document.getElementById('userAlert').classList.add('hidden');
+      document.getElementById('userModal').classList.remove('hidden');
+    }
+    
+    document.getElementById('closeUserModal').onclick = () => document.getElementById('userModal').classList.add('hidden');
+    document.getElementById('cancelUserEdit').onclick = () => document.getElementById('userModal').classList.add('hidden');
+
+    document.getElementById('userForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editUserId').value;
+      const btn = document.getElementById('userSubmitBtn'), txt = document.getElementById('userSubmitText'), sp = document.getElementById('userSpinner'), al = document.getElementById('userAlert');
+      
+      btn.disabled = true; txt.textContent = 'Güncelleniyor...'; sp.classList.remove('hidden'); al.classList.add('hidden');
+      
+      try {
+        await Api.put('/api/Users/' + id, {
+          id: parseInt(id),
+          name: document.getElementById('editUserName').value,
+          email: document.getElementById('editUserEmail').value,
+          role: document.getElementById('editUserRole').value,
+          departmentId: document.getElementById('editUserDepartment').value ? parseInt(document.getElementById('editUserDepartment').value) : null
+        });
+        al.textContent = '✓ Başarıyla güncellendi!'; al.className = 'alert alert-success';
+        setTimeout(() => { document.getElementById('userModal').classList.add('hidden'); loadUsers(); }, 1000);
+      } catch (err) {
+        al.textContent = err.message || 'Güncelleme hatası'; al.className = 'alert alert-error';
+      } finally {
+        btn.disabled = false; txt.textContent = 'Güncelle'; sp.classList.add('hidden');
+      }
+    });
+
+    async function deleteUser(id) {
+      if (!confirm('Bu kullanıcıyı silmek istediğinizden emin misiniz? (Bu işlem geri alınamaz)')) return;
+      try {
+        await Api.delete('/api/Users/' + id);
+        loadUsers();
+      } catch (e) {
+        alert('Silme hatası: ' + e.message);
+      }
+    }
+
+    loadUsers();
+  </script>
+</body>
+</html>
+

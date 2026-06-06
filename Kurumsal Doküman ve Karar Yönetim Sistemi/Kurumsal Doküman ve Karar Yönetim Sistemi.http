@@ -1,0 +1,6 @@
+@Kurumsal_Doküman_ve_Karar_Yönetim_Sistemi_HostAddress = http://localhost:5189
+
+GET {{Kurumsal_Doküman_ve_Karar_Yönetim_Sistemi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

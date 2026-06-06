@@ -1,0 +1,700 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – KDKYS</title>
+  <meta name="description" content="Sistem genelindeki doküman, görev ve kullanıcı istatistiklerini görüntüleyin." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-body">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#sbGrad)"/>
+        <path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/>
+        <path d="M28 26l1.5 1.5L32 24" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="sbGrad" x1="0" y1="0" x2="40" y2="40">
+          <stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/>
+        </linearGradient></defs>
+      </svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item active" id="nav-dashboard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="documents.html?v=2" class="nav-item" id="nav-documents">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Dokümanlar</span>
+      </a>
+      <a href="tasks.html?v=2" class="nav-item" id="nav-tasks">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span>Görevler</span>
+      </a>
+      <a href="users.html?v=2" class="nav-item" id="nav-users">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Kullanıcılar</span>
+      </a>
+      <a href="meetings.html?v=2" class="nav-item" id="nav-meetings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Toplantılar</span>
+      </a>
+            <a href="mails.html?v=2" class="nav-item" id="nav-mails">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Mesajlar</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-user" id="sidebarUser">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <p class="user-name" id="sidebarName">Yükleniyor...</p>
+        <p class="user-role" id="sidebarRole"></p>
+      </div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış Yap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header" style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Sisteme genel bakış</p>
+      </div>
+      <div style="display:flex; gap:1rem; align-items:center;">
+        <div style="position:relative;">
+          <button class="btn btn-ghost" id="notifBtn" style="position:relative; overflow:visible;" title="Bildirimler">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span id="notifBadge" class="badge badge-error" style="position:absolute; top:-6px; right:-8px; display:none; padding:0.3rem 0.6rem; font-size:1rem; font-weight:bold; border:2px solid white; border-radius:9999px; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+          </button>
+          
+          <div id="notifDropdown" class="hidden" style="position:absolute; right:0; top:120%; width:320px; background:var(--bg-card); border:var(--glass-border); border-radius:var(--radius); box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:100; padding:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:0.5rem; margin-bottom:0.5rem;">
+              <h3 style="font-size:1.1rem; margin:0;">Bildirimler</h3>
+              <button id="markAllReadBtn" style="background:none; border:none; color:var(--primary); cursor:pointer; font-size:0.85rem;">Tümünü Okundu İşaretle</button>
+            </div>
+            <div id="notifList" style="max-height:300px; overflow-y:auto; display:flex; flex-direction:column; gap:0.5rem;">
+               <div style="color:var(--text-muted); font-style:italic; padding:1rem; text-align:center;">Yeni bildirim yok.</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" id="exportDataBtn" style="padding: 0.5rem 1rem; display:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:0.3rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Rapor İndir (CSV)
+        </button>
+        <button class="sidebar-toggle" id="sidebarToggle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card loading">
+        <div class="skeleton skeleton-icon"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-num"></div>
+      </div>
+      <div class="stat-card loading">
+        <div class="skeleton skeleton-icon"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-num"></div>
+      </div>
+      <div class="stat-card loading">
+        <div class="skeleton skeleton-icon"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-num"></div>
+      </div>
+      <div class="stat-card loading">
+        <div class="skeleton skeleton-icon"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-num"></div>
+      </div>
+    </div>
+
+    <!-- Two column panels -->
+    <div class="dashboard-panels">
+
+      <!-- Recent Documents -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Son Yüklenen Dokümanlar</h2>
+          <a href="documents.html?v=2" class="panel-link">Tümünü Gör →</a>
+        </div>
+        <div id="recentDocuments" class="panel-list">
+          <div class="panel-loading">Yükleniyor...</div>
+        </div>
+      </div>
+
+      <!-- Recent Tasks -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Son Görevler</h2>
+          <a href="tasks.html?v=2" class="panel-link">Tümünü Gör →</a>
+        </div>
+        <div id="recentTasks" class="panel-list">
+          <div class="panel-loading">Yükleniyor...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Two column panels -->
+    <div class="dashboard-panels">
+      
+      <!-- Task Status Chart Row -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Görev Durum Dağılımı</h2>
+        </div>
+        <div id="taskStatusBars" class="status-bars"></div>
+      </div>
+
+      <!-- Efficiency Analysis Row -->
+      <div class="panel" id="efficiencyPanel">
+        <div class="panel-header">
+          <h2 class="panel-title">Personel Verimlilik Analizi</h2>
+        </div>
+        <div id="efficiencyBars" class="status-bars"></div>
+      </div>
+
+    </div>
+
+    <!-- Meetings Row -->
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">
+        <h2 class="panel-title">Kurumsal Toplantılar</h2>
+        <button class="btn btn-primary hidden" id="addMeetingBtn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">+ Toplantı Ekle</button>
+      </div>
+      <div id="meetingsList" class="user-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); padding: 1rem 0;">
+        <div class="panel-loading">Yükleniyor...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Meeting Modal -->
+  <div class="modal-overlay hidden" id="meetingModal">
+    <div class="modal" style="max-width: 550px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="meetingModalTitle">Toplantı</h3>
+        <button class="modal-close" id="closeMeetingModal">✕</button>
+      </div>
+      <form id="meetingForm" class="modal-form">
+        <input type="hidden" id="meetingId" />
+        <div class="form-group"><label>Toplantı Başlığı *</label><input type="text" id="meetingTitle" required /></div>
+        <div class="form-group"><label>Tarih & Saat *</label><input type="datetime-local" id="meetingDate" required /></div>
+        <div class="form-group"><label>Gündem (Yapılacaklar)</label><textarea id="meetingAgenda" rows="3" placeholder="Toplantı gündemi..."></textarea></div>
+        
+        <div id="notesContainer" class="hidden">
+          <div class="form-group">
+            <label>Toplantı Notları</label>
+            <div id="meetingNotesList" style="max-height:150px; overflow-y:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:0.5rem; margin-bottom:0.5rem; background:var(--bg-main);">
+              <!-- Notlar buraya gelecek -->
+            </div>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="text" id="newNoteInput" placeholder="Notunuzu yazın..." style="flex:1;" />
+              <button type="button" class="btn btn-primary" id="addNewNoteBtn" style="padding:0 1rem; flex-shrink:0;">Ekle</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="meetingAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelMeeting">Kapat</button>
+          <button type="submit" class="btn btn-primary hidden" id="meetingSubmitBtn">
+            <span id="meetingSubmitText">Kaydet</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth();
+    renderSidebar();
+
+    async function loadDashboard() {
+      try {
+        const role = localStorage.getItem('role');
+        const [users] = await Promise.all([Api.get('/api/Users')]);
+        const currentUserId = getCurrentUserId(users);
+        
+        let data;
+        let isUserView = false;
+        
+        if (role === 'Yönetici' || role === 'Departman Sorumlusu') {
+            data = await Api.get('/api/Dashboard/stats');
+        } else {
+            if (currentUserId) {
+                data = await Api.get(`/api/Dashboard/user/${currentUserId}/stats`);
+                isUserView = true;
+            } else {
+                data = await Api.get('/api/Dashboard/stats');
+            }
+        }
+
+        // Stats
+        const statsGrid = document.getElementById('statsGrid');
+        if (isUserView) {
+            statsGrid.innerHTML = `
+              ${statCard('Dokümanlarım', data.myDocuments, '#0ea5e9',
+                '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>')}
+              ${statCard('Paylaşılanlar', data.sharedWithMe, '#8b5cf6',
+                '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>')}
+              ${statCard('Biten Görevlerim', data.myCompletedTasks, '#10b981',
+                '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>')}
+              ${statCard('Bekleyen Görevlerim', data.myPendingTasks, '#f59e0b',
+                '<circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>')}
+            `;
+        } else {
+            statsGrid.innerHTML = `
+              ${statCard('Toplam Kullanıcı', data.totalUsers, '#6366f1',
+                '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>')}
+              ${statCard('Toplam Doküman', data.totalDocuments, '#0ea5e9',
+                '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>')}
+              ${statCard('Tamamlanan Görev', data.completedTasks, '#10b981',
+                '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>')}
+              ${statCard('Bekleyen Görev', data.pendingTasks, '#f59e0b',
+                '<circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>')}
+            `;
+        }
+
+        // Recent Documents (Sadece Yönetici için genel listeyi tutuyoruz)
+        const docList = document.getElementById('recentDocuments');
+        if (!isUserView && data.recentDocuments && data.recentDocuments.length > 0) {
+          docList.innerHTML = data.recentDocuments.map(d => `
+            <div class="list-item">
+              <div class="list-item-icon doc-icon">
+                ${fileIcon(d.originalFileName || d.title)}
+              </div>
+              <div class="list-item-info">
+                <p class="list-item-title">${escHtml(d.title)}</p>
+                <p class="list-item-sub">${escHtml(d.uploadedByUser?.name || 'Bilinmiyor')} · ${formatDate(d.createdAt)}</p>
+              </div>
+              <span class="badge ${d.isExternal ? 'badge-warning' : 'badge-info'}">${d.isExternal ? 'Harici' : 'Dahili'}</span>
+            </div>
+          `).join('');
+        } else if (!isUserView) {
+          docList.innerHTML = '<p class="empty-state">Henüz doküman yok</p>';
+        } else {
+            document.getElementById('recentDocuments').parentElement.style.display = 'none'; // Kullanıcı görünümünde gizle
+        }
+
+        // Recent Tasks
+        const taskList = document.getElementById('recentTasks');
+        const tasksToShow = isUserView ? data.myRecentTasks : data.recentTasks;
+        
+        if (tasksToShow && tasksToShow.length > 0) {
+          taskList.innerHTML = tasksToShow.map(t => `
+            <div class="list-item">
+              <div class="list-item-icon task-icon-${priorityColor(t.priority)}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 11l3 3L22 4"/>
+                </svg>
+              </div>
+              <div class="list-item-info">
+                <p class="list-item-title">${escHtml(t.title)}</p>
+                <p class="list-item-sub">${isUserView ? 'Bana Atanan' : (escHtml(t.assignedToUser?.name || 'Atanmamış'))} · ${priorityLabel(t.priority)}</p>
+              </div>
+              <span class="badge ${statusBadge(t.status)}">${statusLabel(t.status)}</span>
+            </div>
+          `).join('');
+        } else {
+          taskList.innerHTML = '<p class="empty-state">Henüz görev yok</p>';
+        }
+
+        // Task status bars (Sadece yönetici için anlamlı olabilir, şimdilik varsa gösteriyoruz)
+        const bars = document.getElementById('taskStatusBars');
+        const statusMap = { 'Beklemede': '#6366f1', 'DevamEdiyor': '#0ea5e9', 'Tamamlandi': '#10b981', 'Iptal': '#ef4444', '0': '#6366f1', '1': '#0ea5e9', '2': '#10b981', '3': '#ef4444' };
+        const statusNames = { 'Beklemede': 'Beklemede', 'DevamEdiyor': 'Devam Ediyor', 'Tamamlandi': 'Tamamlandı', 'Iptal': 'İptal', '0': 'Beklemede', '1': 'Devam Ediyor', '2': 'Tamamlandı', '3': 'İptal' };
+        
+        if (isUserView) {
+             document.getElementById('taskStatusBars').parentElement.style.display = 'none'; // Kullanıcı görünümünde gizle
+        } else if (data.tasksByStatus && data.tasksByStatus.length > 0) {
+          const total = data.totalTasks || 1;
+          bars.innerHTML = data.tasksByStatus.map(s => {
+            const pct = total > 0 ? Math.round((s.count / data.totalTasks) * 100) : 0;
+            const color = statusMap[s.status] || '#6366f1';
+            const name = statusNames[s.status] || s.status;
+            return `
+              <div class="status-bar-row">
+                <div class="status-bar-label">
+                  <span>${name}</span>
+                  <span class="status-bar-count">${s.count}</span>
+                </div>
+                <div class="status-bar-track">
+                  <div class="status-bar-fill" style="width:${pct}%;background:${color}" data-pct="${pct}"></div>
+                </div>
+              </div>`;
+          }).join('');
+          setTimeout(() => {
+            document.querySelectorAll('.status-bar-fill').forEach(el => {
+              el.style.width = el.dataset.pct + '%';
+            });
+          }, 100);
+        } else {
+          bars.innerHTML = '<p class="empty-state">Görev durumu verisi yok</p>';
+        }
+
+        // Efficiency Analysis (Sadece Yönetici için)
+        const effBars = document.getElementById('efficiencyBars');
+        const effPanel = document.getElementById('efficiencyPanel');
+        
+        if (isUserView) {
+             effPanel.style.display = 'none'; // Kullanıcı görünümünde gizle
+        } else if (data.userEfficiency && data.userEfficiency.length > 0) {
+          // Sıralama: En yüksek verimlilikten en düşüğe (Toplam görevi olanları öne alalım)
+          const sortedEff = data.userEfficiency
+            .filter(u => u.totalTasks > 0)
+            .sort((a,b) => (b.completedTasks / b.totalTasks) - (a.completedTasks / a.totalTasks));
+
+          if (sortedEff.length > 0) {
+            effBars.innerHTML = sortedEff.map((u, i) => {
+              const pct = Math.round((u.completedTasks / u.totalTasks) * 100);
+              // Rengi verimliliğe göre ayarlayalım
+              let color = '#ef4444'; // Red
+              if (pct >= 80) color = '#10b981'; // Green
+              else if (pct >= 50) color = '#f59e0b'; // Yellow
+              else if (pct >= 20) color = '#0ea5e9'; // Blue
+
+              return `
+                <div class="status-bar-row">
+                  <div class="status-bar-label">
+                    <span>${i+1}. ${escHtml(u.name)}</span>
+                    <span class="status-bar-count">%${pct} (${u.completedTasks}/${u.totalTasks})</span>
+                  </div>
+                  <div class="status-bar-track">
+                    <div class="status-bar-fill" style="width:${pct}%;background:${color}" data-pct="${pct}"></div>
+                  </div>
+                </div>`;
+            }).join('');
+            setTimeout(() => {
+              document.querySelectorAll('#efficiencyBars .status-bar-fill').forEach(el => {
+                el.style.width = el.dataset.pct + '%';
+              });
+            }, 100);
+          } else {
+            effBars.innerHTML = '<p class="empty-state">Henüz kimseye görev atanmamış</p>';
+          }
+        } else {
+          effBars.innerHTML = '<p class="empty-state">Analiz edilecek personel verisi yok</p>';
+        }
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // --- Meetings Logic ---
+    let allMeetings = [];
+    let currentGlobalUserId = 1;
+
+    async function loadMeetings() {
+      try {
+        const role = localStorage.getItem('role');
+        if (role === 'Yönetici') {
+          document.getElementById('addMeetingBtn').classList.remove('hidden');
+        }
+
+        const [meetings, users] = await Promise.all([
+          Api.get('/api/Meetings'),
+          Api.get('/api/Users')
+        ]);
+        
+        allMeetings = meetings;
+        currentGlobalUserId = getCurrentUserId(users) || 1;
+
+        const container = document.getElementById('meetingsList');
+        
+        if (!allMeetings || allMeetings.length === 0) {
+          container.innerHTML = '<p class="empty-state">Henüz planlanmış bir toplantı yok</p>';
+          return;
+        }
+
+        container.innerHTML = allMeetings.map(m => {
+          const mDate = new Date(m.meetingDate);
+          const isPast = mDate < new Date();
+          const color = isPast ? '#6b7280' : '#8b5cf6';
+          return `
+            <div class="user-card" style="flex-direction:column; align-items:flex-start; cursor:pointer; border-left: 4px solid ${color};" onclick="openMeetingModal(${m.id})">
+              <h3 style="font-size:1.1rem; color:var(--text-main); margin-bottom:0.5rem;">${escHtml(m.title)}</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); display:flex; align-items:center; gap:0.4rem; margin-bottom:0.5rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ${mDate.toLocaleString('tr-TR')}
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-muted); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+                ${escHtml(m.agenda || 'Gündem belirtilmedi')}
+              </p>
+              ${m.notes ? `<span class="badge badge-success" style="margin-top:0.5rem;">Notlar Eklendi</span>` : ''}
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        document.getElementById('meetingsList').innerHTML = '<p class="empty-state" style="color:#ef4444">Toplantılar yüklenemedi.</p>';
+      }
+    }
+
+    document.getElementById('addMeetingBtn').onclick = () => {
+      document.getElementById('meetingId').value = '';
+      document.getElementById('meetingForm').reset();
+      document.getElementById('meetingModalTitle').textContent = 'Yeni Toplantı Planla';
+      document.getElementById('meetingSubmitBtn').classList.remove('hidden');
+      document.getElementById('notesContainer').classList.add('hidden'); // Yeni eklerken notlar gizli
+      setMeetingFormDisabled(false);
+      
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('meetingDate').value = now.toISOString().slice(0,16);
+      
+      document.getElementById('meetingModal').classList.remove('hidden');
+    };
+
+    window.openMeetingModal = function(id) {
+      const m = allMeetings.find(x => x.id === id);
+      if (!m) return;
+      document.getElementById('meetingId').value = m.id;
+      document.getElementById('meetingTitle').value = m.title;
+      
+      const d = new Date(m.meetingDate);
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      document.getElementById('meetingDate').value = d.toISOString().slice(0,16);
+      
+      document.getElementById('meetingAgenda').value = m.agenda || '';
+      document.getElementById('meetingModalTitle').textContent = 'Toplantı Detayı';
+      document.getElementById('notesContainer').classList.remove('hidden'); // Varolan toplantıda notlar görünür
+      
+      // Notları doldur
+      renderMeetingNotes(m.meetingNotes || []);
+      
+      const isAdmin = localStorage.getItem('role') === 'Yönetici';
+      if (isAdmin) {
+        document.getElementById('meetingSubmitBtn').classList.remove('hidden');
+        setMeetingFormDisabled(false);
+      } else {
+        document.getElementById('meetingSubmitBtn').classList.add('hidden');
+        setMeetingFormDisabled(true);
+      }
+      // Her halükarda yeni not ekleme inputu aktif olacak
+      document.getElementById('newNoteInput').disabled = false;
+      document.getElementById('addNewNoteBtn').disabled = false;
+
+      document.getElementById('meetingModal').classList.remove('hidden');
+    };
+
+    function renderMeetingNotes(notes) {
+      const list = document.getElementById('meetingNotesList');
+      if (notes.length === 0) {
+        list.innerHTML = '<p class="empty-state" style="margin:0; padding:1rem;">Henüz not eklenmemiş.</p>';
+        return;
+      }
+      list.innerHTML = notes.map(n => `
+        <div style="padding:0.5rem; border-bottom:1px solid var(--border-color); font-size:0.9rem;">
+          <strong style="color:var(--text-main);">${escHtml(n.userName)}</strong> <span style="font-size:0.75rem; color:var(--text-muted);">(${new Date(n.createdAt).toLocaleDateString()})</span>
+          <p style="margin-top:0.25rem; color:var(--text-main);">${escHtml(n.noteText)}</p>
+        </div>
+      `).join('');
+      list.scrollTop = list.scrollHeight;
+    }
+
+    document.getElementById('addNewNoteBtn').onclick = async () => {
+      const id = document.getElementById('meetingId').value;
+      const text = document.getElementById('newNoteInput').value.trim();
+      if (!id || !text) return;
+
+      const btn = document.getElementById('addNewNoteBtn');
+      btn.disabled = true;
+      try {
+        const res = await Api.post('/api/Meetings/' + id + '/notes', {
+          userId: currentGlobalUserId,
+          noteText: text
+        });
+        document.getElementById('newNoteInput').value = '';
+        
+        // Modalın içindeki listeyi güncellemek için tüm listeyi reload edip bulalım
+        await loadMeetings();
+        const m = allMeetings.find(x => x.id === parseInt(id));
+        if (m) renderMeetingNotes(m.meetingNotes || []);
+      } catch (e) {
+        alert("Not eklenemedi: " + e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    };
+
+    function setMeetingFormDisabled(disabled) {
+      document.getElementById('meetingTitle').disabled = disabled;
+      document.getElementById('meetingDate').disabled = disabled;
+      document.getElementById('meetingAgenda').disabled = disabled;
+    }
+
+    document.getElementById('closeMeetingModal').onclick = () => document.getElementById('meetingModal').classList.add('hidden');
+    document.getElementById('cancelMeeting').onclick = () => document.getElementById('meetingModal').classList.add('hidden');
+
+    document.getElementById('meetingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('meetingId').value;
+      const payload = {
+        title: document.getElementById('meetingTitle').value,
+        meetingDate: new Date(document.getElementById('meetingDate').value).toISOString(),
+        agenda: document.getElementById('meetingAgenda').value,
+        notes: "", // Artık ayrı tutuluyor
+        createdByUserId: currentGlobalUserId // Doğru kimlik tespiti
+      };
+      
+      try {
+        if (id) {
+          payload.id = parseInt(id);
+          await Api.put('/api/Meetings/' + id, payload);
+        } else {
+          await Api.post('/api/Meetings', payload);
+        }
+        document.getElementById('meetingModal').classList.add('hidden');
+        loadMeetings();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    function statCard(label, value, color, iconPath) {
+      return `
+        <div class="stat-card" style="--accent:${color}">
+          <div class="stat-icon" style="background:${color}20;color:${color}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconPath}</svg>
+          </div>
+          <p class="stat-label">${label}</p>
+          <p class="stat-value">${value ?? 0}</p>
+        </div>`;
+    }
+
+    function fileIcon(name) {
+      const ext = (name || '').split('.').pop().toLowerCase();
+      const colors = { pdf: '#ef4444', docx: '#3b82f6', doc: '#3b82f6', xlsx: '#10b981', xls: '#10b981', txt: '#6b7280' };
+      const c = colors[ext] || '#6366f1';
+      return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14,2 14,8 20,8"/>
+      </svg>`;
+    }
+
+    // --- Notifications Logic ---
+    // --- Notifications Logic ---
+    async function checkNotifications() {
+      try {
+        const uid = localStorage.getItem('userId');
+        if(!uid) return;
+        
+        const notifs = await Api.get('/api/Notifications/user/' + uid);
+        const unread = notifs.filter(n => !n.isRead);
+        
+        const badge = document.getElementById('notifBadge');
+        if(unread.length > 0) {
+          badge.textContent = unread.length;
+          badge.style.display = 'inline-block';
+        } else {
+          badge.style.display = 'none';
+        }
+
+        // Render Dropdown
+        const listContainer = document.getElementById('notifList');
+        if(notifs.length === 0) {
+          listContainer.innerHTML = '<div style="color:var(--text-muted); font-style:italic; padding:1rem; text-align:center;">Yeni bildirim yok.</div>';
+        } else {
+          listContainer.innerHTML = notifs.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(n => `
+            <div style="padding:0.75rem; background:${n.isRead ? 'rgba(255,255,255,0.02)' : 'rgba(99,102,241,0.1)'}; border-radius:8px; border-left:3px solid ${n.isRead ? 'transparent' : 'var(--primary)'}; margin-bottom:0.25rem;">
+              <p style="margin:0; font-size:0.9rem; color:${n.isRead ? 'var(--text-muted)' : 'var(--text-main)'};">${escHtml(n.message)}</p>
+              <small style="color:var(--text-muted); font-size:0.75rem;">${formatDate(n.createdAt)}</small>
+            </div>
+          `).join('');
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    document.getElementById('notifBtn').onclick = () => {
+      document.getElementById('notifDropdown').classList.toggle('hidden');
+    };
+
+    document.getElementById('markAllReadBtn').onclick = async () => {
+      try {
+         const uid = localStorage.getItem('userId');
+         if(uid) {
+           await Api.post('/api/Notifications/mark-all-read/user/' + uid);
+           document.getElementById('notifBadge').style.display = 'none';
+           document.getElementById('notifDropdown').classList.add('hidden');
+           checkNotifications();
+         }
+      } catch (e) {}
+    };
+
+    // Click outside to close dropdown
+    document.addEventListener('click', (e) => {
+      const btn = document.getElementById('notifBtn');
+      const drop = document.getElementById('notifDropdown');
+      if (!btn.contains(e.target) && !drop.contains(e.target)) {
+        drop.classList.add('hidden');
+      }
+    });
+
+    // --- Export Logic ---
+    const role = localStorage.getItem('role');
+    if (role === 'Yönetici') {
+        document.getElementById('exportDataBtn').style.display = 'inline-flex';
+    }
+
+    document.getElementById('exportDataBtn').onclick = () => {
+      let csv = "Personel;Tamamlanan;Toplam;Verimlilik (%)\n";
+      const rows = document.querySelectorAll('#efficiencyBars .status-bar-row');
+      if(rows.length === 0) { alert("Dışa aktarılacak veri yok."); return; }
+      
+      Array.from(rows).forEach(row => {
+          const label = row.querySelector('.status-bar-label').innerText;
+          // Example label format: "1. Ali Yılmaz\n%80 (4/5)"
+          // We can parse it out:
+          const parts = label.split('\n');
+          const name = parts[0] ? parts[0].replace(/^\d+\.\s*/, '').trim() : '';
+          const statsMatch = parts[1] ? parts[1].match(/%(\d+)\s*\((\d+)\/(\d+)\)/) : null;
+          if (statsMatch) {
+              const pct = statsMatch[1];
+              const completed = statsMatch[2];
+              const total = statsMatch[3];
+              csv += `${name};${completed};${total};${pct}\n`;
+          } else {
+              csv += `${label.replace(/\n/g, ' ')};;; \n`;
+          }
+      });
+      
+      const blob = new Blob(["\ufeff" + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", "Personel_Verimlilik_Raporu.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    loadDashboard();
+    loadMeetings();
+    checkNotifications();
+    setInterval(checkNotifications, 30000); // Check every 30s
+  </script>
+</body>
+</html>
+

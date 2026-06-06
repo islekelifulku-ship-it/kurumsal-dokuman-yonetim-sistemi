@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Görevler – KDKYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#g4)"/><path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/><defs><linearGradient id="g4" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+      <a href="documents.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg><span>Dokümanlar</span></a>
+      <a href="tasks.html?v=2" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Görevler</span></a>
+      <a href="users.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Kullanıcılar</span></a>
+      <a href="meetings.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Toplantılar</span></a>
+            <a href="mails.html?v=2" class="nav-item" id="nav-mails">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Mesajlar</span>
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info"><p class="user-name" id="sidebarName">...</p><p class="user-role" id="sidebarRole"></p></div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div><h1 class="page-title">Görevler</h1><p class="page-subtitle">Tüm görevleri takip edin</p></div>
+      <button class="btn btn-primary" id="openTaskModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Yeni Görev
+      </button>
+    </header>
+
+    <!-- Status filter tabs -->
+    <div class="tab-bar">
+      <button class="tab active" data-status="all">Tümü</button>
+      <button class="tab" data-status="0">Beklemede</button>
+      <button class="tab" data-status="1">Devam Ediyor</button>
+      <button class="tab" data-status="2">Tamamlandı</button>
+      <button class="tab" data-status="3">İptal</button>
+    </div>
+
+    <div class="filter-bar">
+      <div class="search-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="taskSearch" class="search-input" placeholder="Görev ara..." />
+      </div>
+      <select id="priorityFilter" class="filter-select">
+        <option value="">Tüm Öncelikler</option>
+        <option value="Yüksek">Yüksek</option>
+        <option value="Orta">Orta</option>
+        <option value="Düşük">Düşük</option>
+      </select>
+    </div>
+
+    <!-- Task Cards -->
+    <div id="taskGrid" class="task-grid">
+      <div class="panel-loading">Yükleniyor...</div>
+    </div>
+  </main>
+
+  <!-- Create/Edit Task Modal -->
+  <div class="modal-overlay hidden" id="taskModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="taskModalTitle">Yeni Görev</h3>
+        <button class="modal-close" id="closeTaskModal">✕</button>
+      </div>
+      <form id="taskForm" class="modal-form">
+        <input type="hidden" id="taskId" />
+        <div class="form-group"><label>Görev Başlığı *</label><input type="text" id="taskTitle" placeholder="Görev adı" required /></div>
+        <div class="form-group"><label>Açıklama</label><textarea id="taskDesc" placeholder="Görev detayları..." rows="3"></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>Öncelik</label>
+            <select id="taskPriority">
+              <option value="Düşük">Düşük</option>
+              <option value="Orta" selected>Orta</option>
+              <option value="Yüksek">Yüksek</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Bitiş Tarihi</label><input type="date" id="taskDueDate" /></div>
+        </div>
+        <div class="form-group"><label>Atanan Kullanıcı</label>
+          <select id="taskAssignee"><option value="">Seçin...</option></select>
+        </div>
+        <div id="taskAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelTask">İptal</button>
+          <button type="submit" class="btn btn-primary" id="taskSubmitBtn">
+            <span id="taskSubmitText">Oluştur</span>
+            <div id="taskSpinner" class="btn-spinner hidden"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Status Update Modal -->
+  <div class="modal-overlay hidden" id="statusModal">
+    <div class="modal modal-sm">
+      <div class="modal-header"><h3 class="modal-title">Durum Güncelle</h3><button class="modal-close" id="closeStatusModal">✕</button></div>
+      <div class="modal-form">
+        <p id="statusTaskName" style="font-weight:600;margin-bottom:1rem;color:var(--text-primary)"></p>
+        <div class="form-group"><label>Yeni Durum</label>
+          <select id="newStatus">
+            <option value="0">Beklemede</option>
+            <option value="1">Devam Ediyor</option>
+            <option value="2">Tamamlandı</option>
+            <option value="3">İptal</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="cancelStatus">İptal</button>
+          <button class="btn btn-primary" id="confirmStatus">Güncelle</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth(); renderSidebar();
+    let allTasks=[], allUsers=[], activeStatus='all', statusTaskId=null;
+
+    async function loadAll(){
+      try{
+        if(localStorage.getItem('role') !== 'Yönetici') {
+            document.getElementById('openTaskModal').style.display = 'none';
+        }
+        [allTasks, allUsers] = await Promise.all([Api.get('/api/TaskItems'), Api.get('/api/Users')]);
+        renderTasks();
+        const sel=document.getElementById('taskAssignee');
+        sel.innerHTML='<option value="">Seçin...</option>'+allUsers.map(u=>`<option value="${u.id}">${escHtml(u.name)}</option>`).join('');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const newTaskDesc = urlParams.get('newtask');
+        if (newTaskDesc && localStorage.getItem('role') === 'Yönetici') {
+          document.getElementById('taskId').value = '';
+          document.getElementById('taskForm').reset();
+          document.getElementById('taskDesc').value = newTaskDesc;
+          document.getElementById('taskTitle').value = 'Toplantı Kararı';
+          document.getElementById('taskModalTitle').textContent = 'Toplantı Kararından Yeni Görev';
+          document.getElementById('taskSubmitText').textContent = 'Oluştur';
+          document.getElementById('taskModal').classList.remove('hidden');
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }catch(e){ document.getElementById('taskGrid').innerHTML=`<p class="table-error">Hata: ${e.message}</p>`; }
+    }
+
+    function renderTasks(){
+      const q=document.getElementById('taskSearch').value.toLowerCase();
+      const pr=document.getElementById('priorityFilter').value;
+      let tasks=allTasks.filter(t=>{
+        const mq=t.title.toLowerCase().includes(q)||(t.description||'').toLowerCase().includes(q);
+        const ms=activeStatus==='all'||String(t.status)===activeStatus;
+        const mp=!pr||t.priority===pr;
+        return mq&&ms&&mp;
+      });
+      const grid=document.getElementById('taskGrid');
+      if(!tasks.length){grid.innerHTML='<p class="empty-state">Görev bulunamadı</p>';return;}
+      grid.innerHTML=tasks.map(t=>`
+        <div class="task-card priority-${priorityClass(t.priority)}">
+          <div class="task-card-header">
+            <span class="badge ${statusBadge(t.status)}">${statusLabel(t.status)}</span>
+            <span class="priority-pill priority-pill-${priorityClass(t.priority)}">${t.priority||'Orta'}</span>
+          </div>
+          <h3 class="task-card-title">${escHtml(t.title)}</h3>
+          <p class="task-card-desc">${escHtml(t.description||'')}</p>
+          <div class="task-card-meta">
+            <span class="task-meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              ${escHtml(t.assignedToUser?.name||'Atanmamış')}
+            </span>
+            ${t.dueDate?`<span class="task-meta-item ${isOverdue(t)?'overdue':''}">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+              ${formatDate(t.dueDate)}
+            </span>`:''}
+          </div>
+          <div class="task-card-actions">
+            ${(localStorage.getItem('role') === 'Yönetici' || String(t.assignedToUserId) === localStorage.getItem('userId')) ? `
+            <button class="icon-btn icon-btn-blue" title="Durumu Güncelle" onclick="openStatusModal(${t.id},'${escHtml(t.title).replace(/'/g,"\\'")}',${t.status})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49,15a9,9,0,1,1-2.12-9.36L23,10"/></svg>
+            </button>` : ''}
+            ${localStorage.getItem('role') === 'Yönetici' ? `
+            <button class="icon-btn icon-btn-purple" title="Düzenle" onclick="openEditModal(${t.id})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="icon-btn icon-btn-red" title="Sil" onclick="deleteTask(${t.id})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1v2"/></svg>
+            </button>
+            ` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+    function isOverdue(t){ return !t.isCompleted && t.dueDate && new Date(t.dueDate)<new Date(); }
+    function priorityClass(p){ return p==='Yüksek'?'high':p==='Düşük'?'low':'medium'; }
+
+    // Tab filtering
+    document.querySelectorAll('.tab').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        activeStatus=btn.dataset.status;
+        renderTasks();
+      });
+    });
+    document.getElementById('taskSearch').addEventListener('input', renderTasks);
+    document.getElementById('priorityFilter').addEventListener('change', renderTasks);
+
+    // Create modal
+    document.getElementById('openTaskModal').onclick=()=>{
+      document.getElementById('taskForm').reset();
+      document.getElementById('taskId').value='';
+      document.getElementById('taskModalTitle').textContent='Yeni Görev';
+      document.getElementById('taskSubmitText').textContent='Oluştur';
+      document.getElementById('taskAlert').classList.add('hidden');
+      document.getElementById('taskModal').classList.remove('hidden');
+    };
+    document.getElementById('closeTaskModal').onclick=()=>document.getElementById('taskModal').classList.add('hidden');
+    document.getElementById('cancelTask').onclick=()=>document.getElementById('taskModal').classList.add('hidden');
+
+    document.getElementById('taskForm').addEventListener('submit',async(e)=>{
+      e.preventDefault();
+      const btn=document.getElementById('taskSubmitBtn'), txt=document.getElementById('taskSubmitText'), sp=document.getElementById('taskSpinner'), al=document.getElementById('taskAlert');
+      btn.disabled=true; txt.textContent='Kaydediliyor...'; sp.classList.remove('hidden'); al.classList.add('hidden');
+      const id=document.getElementById('taskId').value;
+      const body={
+        id:id?parseInt(id):0,
+        title:document.getElementById('taskTitle').value,
+        description:document.getElementById('taskDesc').value,
+        priority:document.getElementById('taskPriority').value,
+        dueDate:document.getElementById('taskDueDate').value||null,
+        assignedToUserId:document.getElementById('taskAssignee').value?parseInt(document.getElementById('taskAssignee').value):null
+      };
+      try{
+        if(id){ await Api.put('/api/TaskItems/'+id, body); }
+        else { await Api.post('/api/TaskItems', body); }
+        al.textContent='✓ Kaydedildi!'; al.className='alert alert-success';
+        setTimeout(()=>{document.getElementById('taskModal').classList.add('hidden'); loadAll();},1000);
+      }catch(err){al.textContent=err.message||'Hata';al.className='alert alert-error';}
+      finally{btn.disabled=false; txt.textContent=id?'Güncelle':'Oluştur'; sp.classList.add('hidden');}
+    });
+
+    function openEditModal(id){
+      const t=allTasks.find(x=>x.id===id); if(!t)return;
+      document.getElementById('taskId').value=t.id;
+      document.getElementById('taskTitle').value=t.title;
+      document.getElementById('taskDesc').value=t.description||'';
+      document.getElementById('taskPriority').value=t.priority||'Orta';
+      document.getElementById('taskDueDate').value=t.dueDate?t.dueDate.substring(0,10):'';
+      document.getElementById('taskAssignee').value=t.assignedToUserId||'';
+      document.getElementById('taskModalTitle').textContent='Görevi Düzenle';
+      document.getElementById('taskSubmitText').textContent='Güncelle';
+      document.getElementById('taskAlert').classList.add('hidden');
+      document.getElementById('taskModal').classList.remove('hidden');
+    }
+
+    async function deleteTask(id){
+      if(!confirm('Bu görevi silmek istediğinizden emin misiniz?'))return;
+      try{await Api.delete('/api/TaskItems/'+id); loadAll();}catch(e){alert(e.message);}
+    }
+
+    // Status modal
+    function openStatusModal(id,name,status){
+      statusTaskId=id;
+      document.getElementById('statusTaskName').textContent='ğŸ“‹ '+name;
+      document.getElementById('newStatus').value=String(status);
+      document.getElementById('statusModal').classList.remove('hidden');
+    }
+    document.getElementById('closeStatusModal').onclick=()=>document.getElementById('statusModal').classList.add('hidden');
+    document.getElementById('cancelStatus').onclick=()=>document.getElementById('statusModal').classList.add('hidden');
+    document.getElementById('confirmStatus').onclick=async()=>{
+      const s=parseInt(document.getElementById('newStatus').value);
+      try{await Api.put('/api/TaskItems/'+statusTaskId+'/status',{status:s}); document.getElementById('statusModal').classList.add('hidden'); loadAll();}
+      catch(e){alert(e.message);}
+    };
+
+    loadAll();
+  </script>
+</body>
+</html>
+

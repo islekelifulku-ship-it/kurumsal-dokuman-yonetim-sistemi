@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toplantılar – KDKYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#g5)"/><path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/><defs><linearGradient id="g5" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+      <a href="documents.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg><span>Dokümanlar</span></a>
+      <a href="tasks.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Görevler</span></a>
+      <a href="users.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Kullanıcılar</span></a>
+      <a href="meetings.html?v=2" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Toplantılar</span></a>
+            <a href="mails.html?v=2" class="nav-item" id="nav-mails">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Mesajlar</span>
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info"><p class="user-name" id="sidebarName">...</p><p class="user-role" id="sidebarRole"></p></div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div><h1 class="page-title">Toplantılar</h1><p class="page-subtitle">Gelecek ve geçmiş toplantı kayıtları ile kararları</p></div>
+      <button class="btn btn-primary hidden" id="addMeetingBtn" style="padding: 0.5rem 1rem;">+ Yeni Toplantı</button>
+    </header>
+
+    <div class="filter-bar">
+      <select id="meetingTypeFilter" class="filter-select">
+        <option value="all">Tüm Toplantılar</option>
+        <option value="future">Gelecek Toplantılar</option>
+        <option value="past">Geçmiş Toplantılar</option>
+      </select>
+    </div>
+
+    <div id="meetingsGrid" class="user-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+      <div class="panel-loading">Yükleniyor...</div>
+    </div>
+  </main>
+
+  <!-- Meeting Modal -->
+  <div class="modal-overlay hidden" id="meetingModal">
+    <div class="modal" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="meetingModalTitle">Toplantı</h3>
+        <button class="modal-close" id="closeMeetingModal">✕</button>
+      </div>
+      <form id="meetingForm" class="modal-form">
+        <input type="hidden" id="meetingId" />
+        <div class="form-group"><label>Toplantı Başlığı *</label><input type="text" id="meetingTitle" required /></div>
+        <div class="form-group"><label>Tarih & Saat *</label><input type="datetime-local" id="meetingDate" required /></div>
+        <div class="form-group"><label>Gündem (Yapılacaklar)</label><textarea id="meetingAgenda" rows="3" placeholder="Toplantı gündemi..."></textarea></div>
+        
+        <div id="notesContainer" class="hidden">
+          <div class="form-group">
+            <label>Toplantı Notları / Eklenen Kararlar</label>
+            <div id="meetingNotesList" style="max-height:150px; overflow-y:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:0.5rem; margin-bottom:0.5rem; background:var(--bg-main);">
+              <!-- Notlar buraya gelecek -->
+            </div>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="text" id="newNoteInput" placeholder="Kendi notunuzu yazın..." style="flex:1;" />
+              <button type="button" class="btn btn-primary" id="addNewNoteBtn" style="padding:0 1rem; flex-shrink:0;">Ekle</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="meetingAlert" class="alert hidden"></div>
+        <div class="modal-actions" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-ghost hidden" id="deleteMeetingBtn" style="color:var(--error); border-color:var(--error);">Sil</button>
+          <div style="display:flex; gap:1rem;">
+            <button type="button" class="btn btn-ghost" id="cancelMeeting">Kapat</button>
+            <button type="submit" class="btn btn-primary hidden" id="meetingSubmitBtn">Kaydet</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth(); 
+    renderSidebar();
+
+    let allMeetings = [];
+    let currentGlobalUserId = 1;
+
+    async function loadMeetings() {
+      try {
+        const role = localStorage.getItem('role');
+        if (role === 'Yönetici') {
+          document.getElementById('addMeetingBtn').classList.remove('hidden');
+        }
+
+        const [meetings, users] = await Promise.all([
+          Api.get('/api/Meetings'),
+          Api.get('/api/Users')
+        ]);
+        
+        allMeetings = meetings;
+        currentGlobalUserId = getCurrentUserId(users) || 1;
+        renderMeetings();
+
+      } catch (err) {
+        document.getElementById('meetingsGrid').innerHTML = '<p class="empty-state" style="color:#ef4444">Hata oluştu.</p>';
+      }
+    }
+
+    function renderMeetings() {
+      const container = document.getElementById('meetingsGrid');
+      const filter = document.getElementById('meetingTypeFilter').value;
+      const now = new Date();
+
+      let filtered = allMeetings;
+      if (filter === 'future') {
+        filtered = allMeetings.filter(m => new Date(m.meetingDate) >= now);
+      } else if (filter === 'past') {
+        filtered = allMeetings.filter(m => new Date(m.meetingDate) < now);
+      }
+
+      if (!filtered || filtered.length === 0) {
+        container.innerHTML = '<p class="empty-state">Toplantı bulunamadı</p>';
+        return;
+      }
+
+      const isAdmin = localStorage.getItem('role') === 'Yönetici';
+      container.innerHTML = filtered.map(m => {
+        const mDate = new Date(m.meetingDate);
+        const isPast = mDate < now;
+        const color = isPast ? '#6b7280' : '#8b5cf6';
+        const deleteBtnHtml = isAdmin ? `<button class="icon-btn icon-btn-red" style="position:absolute; top:1rem; right:1rem; z-index:10;" onclick="event.stopPropagation(); deleteMeeting(${m.id})" title="Toplantıyı Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1v2"/></svg></button>` : '';
+
+        return `
+          <div class="user-card" style="position:relative; flex-direction:column; align-items:flex-start; cursor:pointer; border-left: 4px solid ${color};" onclick="openMeetingModal(${m.id})">
+            ${deleteBtnHtml}
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin-bottom:0.5rem; padding-right:2rem;">${escHtml(m.title)}</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); display:flex; align-items:center; gap:0.4rem; margin-bottom:0.5rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${mDate.toLocaleString('tr-TR')}
+            </p>
+            <p style="font-size:0.85rem; color:var(--text-muted); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+              ${escHtml(m.agenda || 'Gündem belirtilmedi')}
+            </p>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">
+              Oluşturan: ${escHtml(m.createdByUserName)}
+            </p>
+            ${(m.meetingNotes && m.meetingNotes.length > 0) ? `<span class="badge badge-success" style="margin-top:0.5rem;">${m.meetingNotes.length} Not Var</span>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('meetingTypeFilter').addEventListener('change', renderMeetings);
+
+    document.getElementById('addMeetingBtn').onclick = () => {
+      document.getElementById('meetingId').value = '';
+      document.getElementById('meetingForm').reset();
+      document.getElementById('meetingModalTitle').textContent = 'Yeni Toplantı Planla';
+      document.getElementById('meetingSubmitBtn').classList.remove('hidden');
+      document.getElementById('deleteMeetingBtn').classList.add('hidden');
+      document.getElementById('notesContainer').classList.add('hidden');
+      setMeetingFormDisabled(false);
+      
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('meetingDate').value = now.toISOString().slice(0,16);
+      
+      document.getElementById('meetingModal').classList.remove('hidden');
+    };
+
+    window.openMeetingModal = function(id) {
+      const m = allMeetings.find(x => x.id === id);
+      if (!m) return;
+      document.getElementById('meetingId').value = m.id;
+      document.getElementById('meetingTitle').value = m.title;
+      
+      const d = new Date(m.meetingDate);
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      document.getElementById('meetingDate').value = d.toISOString().slice(0,16);
+      
+      document.getElementById('meetingAgenda').value = m.agenda || '';
+      document.getElementById('meetingModalTitle').textContent = 'Toplantı Detayı';
+      document.getElementById('notesContainer').classList.remove('hidden');
+      
+      renderMeetingNotes(m.meetingNotes || []);
+      
+      const isAdmin = localStorage.getItem('role') === 'Yönetici';
+      if (isAdmin) {
+        document.getElementById('meetingSubmitBtn').classList.remove('hidden');
+        document.getElementById('deleteMeetingBtn').classList.remove('hidden');
+        document.getElementById('deleteMeetingBtn').onclick = () => deleteMeeting(id);
+        setMeetingFormDisabled(false);
+      } else {
+        document.getElementById('meetingSubmitBtn').classList.add('hidden');
+        document.getElementById('deleteMeetingBtn').classList.add('hidden');
+        setMeetingFormDisabled(true);
+      }
+      
+      document.getElementById('newNoteInput').disabled = false;
+      document.getElementById('addNewNoteBtn').disabled = false;
+      document.getElementById('meetingModal').classList.remove('hidden');
+    };
+
+    function renderMeetingNotes(notes) {
+      const list = document.getElementById('meetingNotesList');
+      if (notes.length === 0) {
+        list.innerHTML = '<p class="empty-state" style="margin:0; padding:1rem;">Henüz not eklenmemiş.</p>';
+        return;
+      }
+      const isAdmin = localStorage.getItem('role') === 'Yönetici';
+      list.innerHTML = notes.map(n => {
+        const canEditDelete = isAdmin || n.userId === currentGlobalUserId;
+        return `
+        <div style="padding:0.5rem; border-bottom:1px solid var(--border-color); font-size:0.9rem; display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <strong style="color:var(--text-main);">${escHtml(n.userName)}</strong> <span style="font-size:0.75rem; color:var(--text-muted);">(${new Date(n.createdAt).toLocaleDateString()})</span>
+            <p style="margin-top:0.25rem; color:var(--text-main);" id="note-text-${n.id}">${escHtml(n.noteText)}</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.25rem; align-items:flex-end;">
+            ${isAdmin ? `<button type="button" class="btn btn-ghost" style="padding:0.2rem 0.5rem; font-size:0.75rem; color:var(--primary);" onclick="convertToTask('${encodeURIComponent(n.noteText)}')">Göreve Çevir ↗</button>` : ''}
+            ${canEditDelete ? `
+            <div style="display:flex; gap:0.25rem;">
+              <button type="button" class="btn btn-ghost" style="padding:0.2rem 0.5rem; font-size:0.75rem; color:var(--warning);" onclick="editMeetingNote(${n.id}, '${encodeURIComponent(n.noteText)}')">Düzenle</button>
+              <button type="button" class="btn btn-ghost" style="padding:0.2rem 0.5rem; font-size:0.75rem; color:var(--error);" onclick="deleteMeetingNote(${n.id})">Sil</button>
+            </div>
+            ` : ''}
+          </div>
+        </div>
+      `}).join('');
+      list.scrollTop = list.scrollHeight;
+    }
+
+    async function editMeetingNote(noteId, encodedText) {
+      const oldText = decodeURIComponent(encodedText);
+      const newText = prompt("Notu düzenleyin:", oldText);
+      if (newText === null || newText.trim() === "" || newText === oldText) return;
+
+      try {
+        await Api.put('/api/Meetings/notes/' + noteId, { noteText: newText.trim() });
+        await loadMeetings();
+        const id = document.getElementById('meetingId').value;
+        const m = allMeetings.find(x => x.id === parseInt(id));
+        if (m) renderMeetingNotes(m.meetingNotes || []);
+      } catch (e) {
+        alert("Not güncellenemedi: " + e.message);
+      }
+    }
+
+    async function deleteMeetingNote(noteId) {
+      if (!confirm("Bu notu silmek istediğinize emin misiniz?")) return;
+      try {
+        await Api.delete('/api/Meetings/notes/' + noteId);
+        await loadMeetings();
+        const id = document.getElementById('meetingId').value;
+        const m = allMeetings.find(x => x.id === parseInt(id));
+        if (m) renderMeetingNotes(m.meetingNotes || []);
+      } catch (e) {
+        alert("Not silinemedi: " + e.message);
+      }
+    }
+
+    function convertToTask(encodedText) {
+      const text = decodeURIComponent(encodedText);
+      window.location.href = 'tasks.html?newtask=' + encodeURIComponent(text);
+    }
+
+    document.getElementById('addNewNoteBtn').onclick = async () => {
+      const id = document.getElementById('meetingId').value;
+      const text = document.getElementById('newNoteInput').value.trim();
+      if (!id || !text) return;
+
+      const btn = document.getElementById('addNewNoteBtn');
+      btn.disabled = true;
+      try {
+        await Api.post('/api/Meetings/' + id + '/notes', {
+          userId: currentGlobalUserId,
+          noteText: text
+        });
+        document.getElementById('newNoteInput').value = '';
+        
+        await loadMeetings();
+        const m = allMeetings.find(x => x.id === parseInt(id));
+        if (m) renderMeetingNotes(m.meetingNotes || []);
+      } catch (e) {
+        alert("Not eklenemedi: " + e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    };
+
+    function setMeetingFormDisabled(disabled) {
+      document.getElementById('meetingTitle').disabled = disabled;
+      document.getElementById('meetingDate').disabled = disabled;
+      document.getElementById('meetingAgenda').disabled = disabled;
+    }
+
+    document.getElementById('closeMeetingModal').onclick = () => document.getElementById('meetingModal').classList.add('hidden');
+    document.getElementById('cancelMeeting').onclick = () => document.getElementById('meetingModal').classList.add('hidden');
+
+    async function deleteMeeting(id) {
+      if (!confirm('Bu toplantıyı silmek istediğinize emin misiniz?')) return;
+      try {
+        await Api.delete('/api/Meetings/' + id);
+        document.getElementById('meetingModal').classList.add('hidden');
+        loadMeetings();
+      } catch (err) {
+        alert("Silme başarısız: " + err.message);
+      }
+    }
+
+    document.getElementById('meetingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('meetingId').value;
+      const payload = {
+        title: document.getElementById('meetingTitle').value,
+        meetingDate: new Date(document.getElementById('meetingDate').value).toISOString(),
+        agenda: document.getElementById('meetingAgenda').value,
+        createdByUserId: currentGlobalUserId
+      };
+      
+      try {
+        if (id) {
+          payload.id = parseInt(id);
+          await Api.put('/api/Meetings/' + id, payload);
+        } else {
+          await Api.post('/api/Meetings', payload);
+        }
+        document.getElementById('meetingModal').classList.add('hidden');
+        loadMeetings();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    loadMeetings();
+  </script>
+</body>
+</html>
+

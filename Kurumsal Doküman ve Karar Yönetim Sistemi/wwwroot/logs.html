@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aktivite Logları – KDKYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#g5)"/><path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/><defs><linearGradient id="g5" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+      <a href="documents.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg><span>Dokümanlar</span></a>
+      <a href="tasks.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Görevler</span></a>
+      <a href="users.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Kullanıcılar</span></a>
+      <a href="meetings.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Toplantılar</span></a>
+      <a href="logs.html?v=2" class="nav-item active" id="logsNav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Aktivite Logları</span></a>
+            <a href="mails.html?v=2" class="nav-item" id="nav-mails">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Mesajlar</span>
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info"><p class="user-name" id="sidebarName">...</p><p class="user-role" id="sidebarRole"></p></div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div><h1 class="page-title">Sistem Aktivite Logları</h1><p class="page-subtitle">Sistemdeki en son 100 işlem ve değişiklik</p></div>
+    </header>
+
+    <div class="filter-bar">
+      <input type="text" id="logSearch" class="search-input" placeholder="İşlem veya Kişi ara..." />
+    </div>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Tarih</th>
+            <th>Kullanıcı</th>
+            <th>İşlem (Action)</th>
+            <th>Modül</th>
+            <th>Detay</th>
+          </tr>
+        </thead>
+        <tbody id="logsTableBody">
+          <tr><td colspan="5" class="table-empty">Yükleniyor...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth();
+    if(localStorage.getItem('role') !== 'Yönetici') {
+        window.location.href = 'dashboard.html';
+    }
+    renderSidebar();
+
+    let allLogs = [];
+
+    async function loadLogs() {
+      try {
+        allLogs = await Api.get('/api/AuditLogs');
+        renderLogs();
+      } catch (err) {
+        document.getElementById('logsTableBody').innerHTML = '<tr><td colspan="5" class="table-error">Loglar yüklenemedi.</td></tr>';
+      }
+    }
+
+    function renderLogs() {
+      const q = document.getElementById('logSearch').value.toLowerCase();
+      const tbody = document.getElementById('logsTableBody');
+      
+      const filtered = allLogs.filter(l => 
+        (l.userName || '').toLowerCase().includes(q) ||
+        (l.action || '').toLowerCase().includes(q) ||
+        (l.details || '').toLowerCase().includes(q)
+      );
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="table-empty">Kayıt bulunamadı</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(l => {
+        let actionColor = 'var(--text-main)';
+        if(l.action.includes('DELETE') || l.action.includes('SİL')) actionColor = 'var(--error)';
+        if(l.action.includes('CREATE') || l.action.includes('YENİ')) actionColor = 'var(--success)';
+        if(l.action.includes('UPDATE') || l.action.includes('GÜNCELLE')) actionColor = 'var(--warning)';
+
+        return `
+          <tr>
+            <td>${new Date(l.createdAt).toLocaleString('tr-TR')}</td>
+            <td><strong>${escHtml(l.userName)}</strong></td>
+            <td style="color:${actionColor}; font-weight:600;">${escHtml(l.action)}</td>
+            <td>${escHtml(l.entityName)}</td>
+            <td>${escHtml(l.details)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('logSearch').addEventListener('input', renderLogs);
+    loadLogs();
+  </script>
+</body>
+</html>
+

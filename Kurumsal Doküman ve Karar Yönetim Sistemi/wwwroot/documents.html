@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dokümanlar – KDKYS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#g3)"/><path d="M10 14h20M10 20h14M10 26h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="26" r="5" fill="white" opacity="0.9"/><path d="M28 26l1.5 1.5L32 24" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g3" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+      <span class="sidebar-brand-text">KDKYS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+      <a href="documents.html?v=2" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg><span>Dokümanlar</span></a>
+      <a href="tasks.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Görevler</span></a>
+      <a href="users.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Kullanıcılar</span></a>
+      <a href="meetings.html?v=2" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Toplantılar</span></a>
+            <a href="mails.html?v=2" class="nav-item" id="nav-mails">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Mesajlar</span>
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info"><p class="user-name" id="sidebarName">...</p><p class="user-role" id="sidebarRole"></p></div>
+      <button class="logout-btn" id="logoutBtn" title="Çıkış"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div><h1 class="page-title">Dokümanlar</h1><p class="page-subtitle">Kurumsal dokümanları yönetin</p></div>
+      <button class="btn btn-primary" id="openUploadModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Doküman Yükle
+      </button>
+    </header>
+
+    <div class="filter-bar">
+      <div class="search-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="docSearch" class="search-input" placeholder="Doküman ara..." />
+      </div>
+      <select id="docFilter" class="filter-select">
+        <option value="">Tümü</option>
+        <option value="internal">Dahili</option>
+        <option value="external">Harici</option>
+      </select>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead><tr><th>Doküman</th><th>Açıklama</th><th>Yükleyen</th><th>Tür</th><th>Tarih</th><th>İşlemler</th></tr></thead>
+        <tbody id="docTableBody"><tr><td colspan="6" class="table-loading">Yükleniyor...</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay hidden" id="uploadModal">
+    <div class="modal">
+      <div class="modal-header"><h3 class="modal-title">Doküman Yükle</h3><button class="modal-close" id="closeUploadModal">✕</button></div>
+      <form id="uploadForm" class="modal-form">
+        <div class="form-group"><label>Başlık *</label><input type="text" id="docTitle" placeholder="Doküman adı" required /></div>
+        <div class="form-group"><label>Açıklama</label><textarea id="docDesc" placeholder="Kısa açıklama..." rows="2"></textarea></div>
+        <div class="form-group">
+          <label>Dosya *</label>
+          <div class="file-drop-zone" id="dropZone">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Dosyayı sürükleyin veya</p>
+            <label class="file-pick-btn">Dosya Seçin<input type="file" id="docFile" accept=".pdf,.docx,.xlsx,.doc,.xls,.txt,.png,.jpg" hidden required /></label>
+            <p id="selectedFileName" class="selected-file hidden"></p>
+          </div>
+        </div>
+        <div class="form-group"><label>Tür</label><select id="docExternal"><option value="false">Dahili</option><option value="true">Harici</option></select></div>
+        <div id="uploadAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelUpload">İptal</button>
+          <button type="submit" class="btn btn-primary" id="uploadBtn"><span id="uploadBtnText">Yükle</span><div id="uploadSpinner" class="btn-spinner hidden"></div></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal-overlay hidden" id="shareModal">
+    <div class="modal">
+      <div class="modal-header"><h3 class="modal-title">Dokümanı Paylaş</h3><button class="modal-close" id="closeShareModal">✕</button></div>
+      <div class="modal-form">
+        <p id="shareDocName" class="share-doc-name"></p>
+        <div class="form-group"><label>Kullanıcı Seç</label><select id="shareUserSelect"><option value="">Seçin...</option></select></div>
+        <div id="shareAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="cancelShare">İptal</button>
+          <button class="btn btn-primary" id="confirmShare">Paylaş</button>
+        </div>
+        <div id="shareList" class="share-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Share Modal -->
+  <div class="modal-overlay hidden" id="emailModal">
+    <div class="modal">
+      <div class="modal-header"><h3 class="modal-title">E-posta ile Gönder</h3><button class="modal-close" id="closeEmailModal">✕</button></div>
+      <div class="modal-form">
+        <p id="emailDocName" class="share-doc-name"></p>
+        <div class="form-group"><label>Alıcı E-posta</label><input type="email" id="emailAddress" placeholder="ornek@sirket.com" required /></div>
+        <div class="form-group"><label>Mesaj (İsteğe bağlı)</label><textarea id="emailMessage" placeholder="Doküman ile birlikte iletilecek not..." rows="2"></textarea></div>
+        <div id="emailAlert" class="alert hidden"></div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="cancelEmail">İptal</button>
+          <button class="btn btn-primary" id="confirmEmail">
+            <span id="confirmEmailText">Gönder</span>
+            <div id="emailSpinner" class="btn-spinner hidden"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    requireAuth(); renderSidebar();
+    let allDocs=[], allUsers=[], currentUserId=null, shareDocId=null;
+
+    async function loadAll(){
+      try {
+        [allDocs, allUsers] = await Promise.all([Api.get('/api/Documents'), Api.get('/api/Users')]);
+        currentUserId = getCurrentUserId(allUsers);
+        renderTable(allDocs);
+      } catch(e){ document.getElementById('docTableBody').innerHTML=`<tr><td colspan="6" class="table-error">Hata: ${e.message}</td></tr>`; }
+    }
+
+    function renderTable(docs){
+      const body=document.getElementById('docTableBody');
+      if(!docs.length){ body.innerHTML='<tr><td colspan="6" class="empty-state">Henüz doküman yok</td></tr>'; return; }
+      body.innerHTML=docs.map(d=>`
+        <tr>
+          <td><div class="doc-name-cell"><span class="file-ext-badge" style="${extStyle(d.originalFileName||d.title)}">${getExt(d.originalFileName||d.title)}</span><span>${escHtml(d.title)}</span></div></td>
+          <td class="text-muted">${escHtml(d.description||'–')}</td>
+          <td>${escHtml(d.uploadedByUser?.name||'?')}</td>
+          <td><span class="badge ${d.isExternal?'badge-warning':'badge-info'}">${d.isExternal?'Harici':'Dahili'}</span></td>
+          <td class="text-muted">${formatDate(d.createdAt)}</td>
+          <td><div class="action-btns">
+            <button class="icon-btn icon-btn-blue" title="İndir" onclick="downloadDoc(${d.id})"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+            <button class="icon-btn icon-btn-purple" title="Sistem İçi Paylaş" onclick="openShare(${d.id},'${escHtml(d.title).replace(/'/g,"\\'")}')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+            <button class="icon-btn" style="color:#0ea5e9" title="E-posta ile Gönder" onclick="openEmailShare(${d.id},'${escHtml(d.title).replace(/'/g,"\\'")}')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></button>
+            <button class="icon-btn" style="color:#25D366" title="WhatsApp ile Paylaş" onclick="window.open('https://api.whatsapp.com/send?text=Lütfen bu dokümanı inceleyin: ' + encodeURIComponent('${escHtml(d.title)}'), '_blank')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></button>
+            ${localStorage.getItem('role') === 'Yönetici' ? `<button class="icon-btn icon-btn-red" title="Sil" onclick="deleteDoc(${d.id})"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1v2"/></svg></button>` : ''}
+          </div></td>
+        </tr>`).join('');
+    }
+
+    function getExt(n){ return ((n||'').split('.').pop()||'?').toUpperCase().slice(0,4); }
+    function extStyle(n){ const e=(n||'').split('.').pop().toLowerCase(); const c={pdf:'#ef4444',docx:'#3b82f6',doc:'#3b82f6',xlsx:'#10b981',xls:'#10b981',txt:'#6b7280',png:'#f59e0b',jpg:'#f59e0b'}; const col=c[e]||'#6366f1'; return `background:${col}20;color:${col}`; }
+
+    document.getElementById('docSearch').addEventListener('input', filterDocs);
+    document.getElementById('docFilter').addEventListener('change', filterDocs);
+    function filterDocs(){ const q=document.getElementById('docSearch').value.toLowerCase(); const f=document.getElementById('docFilter').value; renderTable(allDocs.filter(d=>{ const mq=d.title.toLowerCase().includes(q)||(d.description||'').toLowerCase().includes(q); const mf=!f||(f==='internal'&&!d.isExternal)||(f==='external'&&d.isExternal); return mq&&mf; })); }
+
+    document.getElementById('openUploadModal').onclick=()=>document.getElementById('uploadModal').classList.remove('hidden');
+    document.getElementById('closeUploadModal').onclick=()=>document.getElementById('uploadModal').classList.add('hidden');
+    document.getElementById('cancelUpload').onclick=()=>document.getElementById('uploadModal').classList.add('hidden');
+    document.getElementById('docFile').onchange=e=>{ const f=e.target.files[0]; const el=document.getElementById('selectedFileName'); if(f){el.textContent='✓ '+f.name; el.classList.remove('hidden');} };
+
+    document.getElementById('uploadForm').addEventListener('submit', async(e)=>{
+      e.preventDefault();
+      const btn=document.getElementById('uploadBtn'), txt=document.getElementById('uploadBtnText'), sp=document.getElementById('uploadSpinner'), al=document.getElementById('uploadAlert');
+      const file=document.getElementById('docFile').files[0]; if(!file){al.textContent='Dosya seçin';al.className='alert alert-error';return;}
+      btn.disabled=true; txt.textContent='Yükleniyor...'; sp.classList.remove('hidden'); al.classList.add('hidden');
+      const fd=new FormData(); fd.append('file',file); fd.append('title',document.getElementById('docTitle').value); fd.append('description',document.getElementById('docDesc').value); fd.append('uploadedByUserId',currentUserId||1); fd.append('isExternal',document.getElementById('docExternal').value);
+      try{
+        await Api.postForm('/api/Documents/upload',fd);
+        al.textContent='✓ Yüklendi!'; al.className='alert alert-success';
+        document.getElementById('uploadForm').reset(); document.getElementById('selectedFileName').classList.add('hidden');
+        setTimeout(()=>{document.getElementById('uploadModal').classList.add('hidden');loadAll();},1200);
+      }catch(err){al.textContent=err.message||'Hata'; al.className='alert alert-error';}
+      finally{btn.disabled=false; txt.textContent='Yükle'; sp.classList.add('hidden');}
+    });
+
+    async function downloadDoc(id){
+      const token=localStorage.getItem('token');
+      const resp=await fetch(`/api/Documents/${id}/download`,{headers:{'Authorization':'Bearer '+token}});
+      if(!resp.ok){alert('İndirme hatası'); return;}
+      const blob=await resp.blob();
+      const cd=resp.headers.get('Content-Disposition')||''; const m=cd.match(/filename="?([^";\n]+)/i);
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=m?m[1]:'dosya'; a.click();
+    }
+
+    async function deleteDoc(id){
+      if(!confirm('Bu dokümanı silmek istediğinizden emin misiniz?'))return;
+      try{await Api.delete('/api/Documents/'+id); loadAll();}catch(e){alert(e.message);}
+    }
+
+    function openShare(docId,docName){
+      shareDocId=docId; document.getElementById('shareDocName').textContent='ğŸ“„ '+docName;
+      const sel=document.getElementById('shareUserSelect');
+      sel.innerHTML='<option value="">Kullanıcı seçin...</option>'+allUsers.map(u=>`<option value="${u.id}">${escHtml(u.name)} (${escHtml(u.email)})</option>`).join('');
+      document.getElementById('shareAlert').classList.add('hidden');
+      document.getElementById('shareModal').classList.remove('hidden');
+      loadShareList(docId);
+    }
+    document.getElementById('closeShareModal').onclick=()=>document.getElementById('shareModal').classList.add('hidden');
+    document.getElementById('cancelShare').onclick=()=>document.getElementById('shareModal').classList.add('hidden');
+
+    async function loadShareList(docId){
+      try{
+        const list=await Api.get(`/api/DocumentSharing/document/${docId}`);
+        const el=document.getElementById('shareList');
+        if(!list.length){el.innerHTML='<p class="text-muted" style="font-size:.85rem;margin-top:1rem">Henüz paylaşım yok</p>';return;}
+        el.innerHTML='<p class="share-list-title">Mevcut Paylaşımlar</p>'+list.map(s=>`<div class="share-list-item"><span>${escHtml(s.sharedWithUser?.name||'?')}</span><button class="icon-btn icon-btn-red" onclick="removeShare(${s.id})">✕</button></div>`).join('');
+      }catch{}
+    }
+
+    document.getElementById('confirmShare').onclick=async()=>{
+      const userId=document.getElementById('shareUserSelect').value, al=document.getElementById('shareAlert');
+      if(!userId){al.textContent='Kullanıcı seçin';al.className='alert alert-error';return;}
+      try{await Api.post('/api/DocumentSharing/share',{documentId:shareDocId,sharedWithUserId:parseInt(userId),sharedByUserId:currentUserId||1}); al.textContent='✓ Paylaşıldı!';al.className='alert alert-success'; loadShareList(shareDocId);}
+      catch(e){al.textContent=e.message;al.className='alert alert-error';}
+    };
+
+    async function removeShare(id){try{await Api.delete('/api/DocumentSharing/'+id);loadShareList(shareDocId);}catch(e){alert(e.message);}}
+
+    // Email Sharing Logic
+    let emailDocId = null;
+    function openEmailShare(docId, docName) {
+      emailDocId = docId;
+      document.getElementById('emailDocName').textContent = 'ğŸ“§ ' + docName;
+      document.getElementById('emailAddress').value = '';
+      document.getElementById('emailMessage').value = '';
+      document.getElementById('emailAlert').classList.add('hidden');
+      document.getElementById('emailModal').classList.remove('hidden');
+    }
+    document.getElementById('closeEmailModal').onclick = () => document.getElementById('emailModal').classList.add('hidden');
+    document.getElementById('cancelEmail').onclick = () => document.getElementById('emailModal').classList.add('hidden');
+
+    document.getElementById('confirmEmail').onclick = async () => {
+      const email = document.getElementById('emailAddress').value;
+      const message = document.getElementById('emailMessage').value;
+      const al = document.getElementById('emailAlert');
+      const btn = document.getElementById('confirmEmail');
+      const txt = document.getElementById('confirmEmailText');
+      const sp = document.getElementById('emailSpinner');
+
+      if (!email || !email.includes('@')) { al.textContent = 'Geçerli bir e-posta girin'; al.className = 'alert alert-error'; return; }
+
+      btn.disabled = true; txt.textContent = 'Gönderiliyor...'; sp.classList.remove('hidden'); al.classList.add('hidden');
+
+      try {
+        await Api.post(`/api/Documents/${emailDocId}/share-email`, { email: email, message: message });
+        al.textContent = '✓ E-posta başarıyla gönderildi!'; al.className = 'alert alert-success';
+        setTimeout(() => document.getElementById('emailModal').classList.add('hidden'), 1500);
+      } catch (e) {
+        al.textContent = e.message || 'Gönderim hatası'; al.className = 'alert alert-error';
+      } finally {
+        btn.disabled = false; txt.textContent = 'Gönder'; sp.classList.add('hidden');
+      }
+    };
+
+    loadAll();
+  </script>
+</body>
+</html>
+
