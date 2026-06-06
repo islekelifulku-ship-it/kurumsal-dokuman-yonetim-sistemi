@@ -53,7 +53,7 @@ namespace Kurumsal_Doküman_ve_Karar_Yönetim_Sistemi.Controllers
 
             if (user == null)
             {
-                return Unauthorized("Kullanıcı bulunamadı.");
+                return BadRequest("Kullanıcı bulunamadı.");
             }
 
             var result = _passwordHasher.VerifyHashedPassword(
@@ -63,7 +63,7 @@ namespace Kurumsal_Doküman_ve_Karar_Yönetim_Sistemi.Controllers
 
             if (result == PasswordVerificationResult.Failed)
             {
-                return Unauthorized("Şifre yanlış.");
+                return BadRequest("Şifre yanlış.");
             }
 
             var claims = new[]
